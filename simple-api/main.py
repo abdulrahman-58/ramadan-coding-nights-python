@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 import random
+import os 
 
 app = FastAPI()
 
+API_KEY  = os.getenv("API_KEY")
 side_hustles = [
     "Freelancing - Start offering your skills online!",
     "Dropshipping - Sell without handling inventory!",
@@ -39,13 +41,13 @@ money_quotes = [
 @app.get("/side_hustles")
 def get_side_hustles(apiKey: str):
     """Returns a random side hustle idea"""
-    if apiKey != "321simpleapi":
+    if apiKey != API_KEY:
         return {"error": "Invalid API key"}
     return {"side_hustles": random.choice(side_hustles)}
 
 @app.get("/money_quotes")
 def get_money_quotes(apiKey: str):
     """Returns a random money quote"""
-    if apiKey != "321simpleapi":
+    if apiKey != API_KEY:
         return {"error": "Invalid API key"}
     return {"money_quotes": random.choice(money_quotes)}
